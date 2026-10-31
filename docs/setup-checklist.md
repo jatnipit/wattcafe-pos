@@ -29,14 +29,14 @@
 **ปลดล็อก:** ticket 02, 03, 12
 **หน้าเว็บ:** https://supabase.com/dashboard/projects
 
-- [ ] สมัคร/ล็อกอิน Supabase ด้วยบัญชี GitHub หรือ Google
-- [ ] กด **New project**
-- [ ] ตั้งชื่อ `wattcafe-pos`
-- [ ] เลือก Region **Southeast Asia (Singapore)** — ใกล้ไทยที่สุด ลด latency
-- [ ] ตั้ง **Database Password** ให้ยาวและสุ่ม แล้วเก็บลง password manager ทันที
+- [x] สมัคร/ล็อกอิน Supabase ด้วยบัญชี GitHub หรือ Google
+- [x] กด **New project**
+- [x] ตั้งชื่อ `wattcafe-pos`
+- [x] เลือก Region **Southeast Asia (Singapore)** — ใกล้ไทยที่สุด ลด latency
+- [x] ตั้ง **Database Password** ให้ยาวและสุ่ม แล้วเก็บลง password manager ทันที
   - สำคัญ: หน้านี้แสดงรหัสครั้งเดียว ถ้าหายต้อง reset ซึ่งจะกระทบ connection string
-- [ ] รอจนสถานะเป็น **Active** (ประมาณ 2 นาที)
-- [ ] คัดลอก **project ref** จาก URL: `dashboard/project/<ref>` (ref คือชุดอักษร 20 ตัว)
+- [x] รอจนสถานะเป็น **Active** (ประมาณ 2 นาที)
+- [x] คัดลอก **project ref** จาก URL: `dashboard/project/<ref>` (ref คือชุดอักษร 20 ตัว)
 - [ ] จดบันทึก:
 
 ```
@@ -55,9 +55,9 @@ SUPABASE_URL          = https://<ref>.supabase.co
 **หน้าเว็บ:** `https://supabase.com/dashboard/project/<ref>/settings/api-keys`
 (โปรเจกต์เก่าอาจอยู่ที่ `Settings → API`)
 
-- [ ] คัดลอก **Project URL** แล้วเทียบกับ `SUPABASE_URL` ที่จดไว้ในข้อ 1 ต้องตรงกัน
-- [ ] คัดลอก **anon / publishable key** (ขึ้นต้นด้วย `eyJ...` หรือ `sb_publishable_...`)
-- [ ] คัดลอก **service_role / secret key** (ขึ้นต้นด้วย `eyJ...` หรือ `sb_secret_...`)
+- [x] คัดลอก **Project URL** แล้วเทียบกับ `SUPABASE_URL` ที่จดไว้ในข้อ 1 ต้องตรงกัน
+- [x] คัดลอก **anon / publishable key** (ขึ้นต้นด้วย `eyJ...` หรือ `sb_publishable_...`)
+- [x] คัดลอก **service_role / secret key** (ขึ้นต้นด้วย `eyJ...` หรือ `sb_secret_...`)
 
 ```
 NEXT_PUBLIC_SUPABASE_URL       = https://<ref>.supabase.co
@@ -67,7 +67,8 @@ SUPABASE_SERVICE_ROLE_KEY      =
 
 > ⚠ `service_role` ข้าม RLS ทั้งหมด ห้ามหลุดไปฝั่งเบราว์เซอร์หรือขึ้น git เด็ดขาด
 
-- [ ] บอก agent ว่าค่าพร้อมแล้ว — agent จะเขียนลง `.env.hosted` ให้ (ไฟล์นี้ถูก gitignore ผ่าน `.env*`)
+- [ ] เขียนค่าทั้งสามลง `.env.hosted` ด้วยตัวเอง (ดูวิธีในหัวข้อ "เขียนไฟล์ `.env` ด้วยตัวเอง" ท้ายเอกสาร)
+- [ ] อย่าส่งค่าลับในแชต — agent ไม่อ่านและไม่เขียนไฟล์ `.env` ใด ๆ เว้น `.env.example` (กฎใน `AGENTS.md`)
 
 ---
 
@@ -233,7 +234,7 @@ APP_BASE_URL =
 SUPABASE_ACCESS_TOKEN =
 ```
 
-- [ ] บอก agent ว่าค่าพร้อมแล้ว — agent จะตั้งให้ด้วยคำสั่งนี้:
+- [ ] ตั้ง secret และ variable ด้วยตัวเองด้วยคำสั่งนี้ (คำสั่งจะถามค่าทีละตัว จึงไม่ต้องพิมพ์ค่าลงใน command line และ agent ไม่ต้องเห็นค่า)
 
 ```bash
 gh secret set SUPABASE_ACCESS_TOKEN
@@ -247,7 +248,8 @@ gh variable set SUPABASE_PROJECT_REF
 
 ## 10. ปิดงาน: ตรวจว่าครบ
 
-- [ ] `.env.hosted` มีค่าครบ 12 ตัว และไม่ถูก commit (`.env*` ถูก gitignore แล้ว)
+- [ ] `.env.hosted` มีค่าครบ 12 ตัว (คุณเขียนเอง) และไม่ถูก commit (`.env*` ถูก gitignore แล้ว)
+- [ ] `git status --short` ไม่แสดงไฟล์ `.env` ใด ๆ
 - [ ] `gh secret list` แสดง `SUPABASE_ACCESS_TOKEN` และ `SUPABASE_DB_PASSWORD`
 - [ ] `gh variable list` แสดง `SUPABASE_PROJECT_REF`
 - [ ] LINE: auto-reply และ greeting ปิดทั้งคู่
@@ -278,12 +280,41 @@ gh variable set SUPABASE_PROJECT_REF
 
 ## `.env` สองไฟล์ที่ต้องแยกกัน
 
-| ไฟล์ | ใช้เมื่อ | ค่า |
-|---|---|---|
-| `.env.local` | `npm run dev` และเทสต์บนเครื่อง | ชี้ไป Supabase local (`http://127.0.0.1:54321`) — agent สร้างจาก `supabase status` ใน ticket 01 |
-| `.env.hosted` | อ้างอิงค่าจริงของ production | ชี้ไปโปรเจกต์ Supabase บนคลาวด์ |
+| ไฟล์ | ใช้เมื่อ | ค่า | ใครเขียน |
+|---|---|---|---|
+| `.env.local` | `npm run dev` และเทสต์บนเครื่อง | ชี้ไป Supabase local (`http://127.0.0.1:54321`) | คุณเขียนเอง |
+| `.env.hosted` | อ้างอิงค่าจริงของ production | ชี้ไปโปรเจกต์ Supabase บนคลาวด์ | คุณเขียนเอง |
 
 > แยกสองไฟล์เพราะถ้า `npm run dev` ชี้ไป production โดยไม่ตั้งใจ การทดสอบจะเขียนข้อมูลลงฐานข้อมูลจริง
+
+### เขียนไฟล์ `.env` ด้วยตัวเอง
+
+agent ถูกห้ามอ่านและเขียนไฟล์ `.env` ทุกไฟล์ (กฎใน `AGENTS.md`) แก้ได้แค่ `.env.example` ไฟล์จริงจึงต้องสร้างและกรอกด้วยมือเสมอ
+
+1. **คัดลอกตัวอย่างเป็นไฟล์จริง**
+
+   ```powershell
+   Copy-Item .env.example .env.local    # สำหรับรันบนเครื่อง
+   Copy-Item .env.example .env.hosted   # สำหรับอ้างอิงค่า production
+   ```
+
+2. **เติมค่าเฉพาะบรรทัดที่ต้องใช้** — เปิดด้วย editor เช่น `code .env.local`
+   - รูปแบบคือ `ชื่อ=ค่า` ห้ามมีช่องว่างรอบ `=` และไม่ต้องใส่เครื่องหมายคำพูด
+   - บรรทัดที่ขึ้นต้นด้วย `#` เป็น comment ปล่อยไว้ได้
+   - ไฟล์ไหนใช้ค่าไหนดูจากหัวข้อใน `.env.example` และตารางค่าทั้งหมดด้านบน
+   - `.env.local` ใช้ค่าจาก `npx supabase status` (`API_URL`, `ANON_KEY`, `SERVICE_ROLE_KEY`) ส่วน LINE ใช้ค่า dummy อะไรก็ได้ตอนเทสต์บนเครื่อง
+
+3. **บันทึกเป็น UTF-8 without BOM** — ถ้าแก้ด้วย PowerShell 5.1 ให้ระวัง BOM (กับดักข้อ 8) วิธีที่ปลอดภัยคือใช้ VS Code แล้วดูมุมขวาล่างให้เป็น `UTF-8`
+
+4. **ตรวจว่าไม่หลุดเข้า git**
+
+   ```powershell
+   git status --short    # ต้องไม่เห็น .env.local หรือ .env.hosted
+   ```
+
+5. **ถ้าแอปฟ้องว่าค่าหาย** — error จะบอกชื่อตัวแปรที่ขาด บอก agent ได้แค่ว่าตัวแปรไหนขาด โดยไม่ต้องส่งค่าจริง agent จะชี้ไปยังข้อในเอกสารนี้ที่ทำให้ได้ค่านั้น
+
+> ห้าม commit ไฟล์จริงทุกกรณี แม้จะเป็น repo ส่วนตัว — `service_role` และ `LINE_CHANNEL_SECRET` คือกุญแจที่ใช้แทนรหัสผ่านของระบบทั้งหมด
 
 ## กับดักที่เจอบ่อย
 

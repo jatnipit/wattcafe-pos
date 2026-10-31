@@ -8,6 +8,22 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## Environment files (hard rule)
+
+Never read, write, create, copy, diff, or print any `.env` file. This covers `.env`, `.env.local`, `.env.hosted`, `.env.production`, and every other `.env.*` path, plus any command that would surface their contents (`Get-Content`, `cat`, `Select-String`, `git diff`, `git show`, printing process env, etc.).
+
+The single exception is `.env.example`, which agents may read and edit freely. It holds placeholders only, never real secrets.
+
+When the work needs a new environment variable:
+
+1. Add it to `.env.example` with an empty value and a short comment saying where the value comes from.
+2. Document the manual step in `docs/setup-checklist.md`: which dashboard screen produces the value, which file it belongs in, and how to verify it.
+3. Ask the user to write the real value themselves.
+
+The user fills real files. If a command fails because a value is missing or malformed, report the variable name and point at the matching checklist step. Do not open the file to check it, and do not ask the user to paste secrets into the chat.
+
+This applies indirectly too: do not generate setup scripts, wizards, or shell snippets that write `.env` files. Such a script may open the dashboard, describe the step, and update `.env.example`; the user types the real value into the real file themselves.
+
 ## Agent skills
 
 ### Issue tracker

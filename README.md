@@ -25,10 +25,12 @@
 
 ```bash
 npm install
-cp .env.example .env.local   # แล้วเติมค่าจาก `npx supabase status`
+cp .env.example .env.local   # รันเอง แล้วเติมค่าจาก `npx supabase status`
 npm run db:start             # สตาร์ท Supabase local + รัน migration + seed
 npm run dev
 ```
+
+> agent ไม่มีสิทธิ์อ่านหรือเขียนไฟล์ `.env` ใด ๆ (ดู `AGENTS.md`) — ขั้นคัดลอกและเติมค่า `.env.local` ต้องทำเอง วิธีละเอียดอยู่ที่ `docs/setup-checklist.md` หัวข้อ "เขียนไฟล์ `.env` ด้วยตัวเอง"
 
 เปิด http://localhost:3000 จะเห็นกระดานข้อความเข้า (seed มีข้อความตัวอย่าง)
 
