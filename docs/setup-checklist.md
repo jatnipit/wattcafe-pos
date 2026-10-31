@@ -40,7 +40,7 @@
 - [ ] จดบันทึก:
 
 ```
-SUPABASE_PROJECT_REF  = 
+SUPABASE_PROJECT_REF  =
 SUPABASE_DB_PASSWORD  = (เก็บใน password manager)
 SUPABASE_URL          = https://<ref>.supabase.co
 ```
@@ -61,14 +61,14 @@ SUPABASE_URL          = https://<ref>.supabase.co
 
 ```
 NEXT_PUBLIC_SUPABASE_URL       = https://<ref>.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY  = 
-SUPABASE_SERVICE_ROLE_KEY      = 
+NEXT_PUBLIC_SUPABASE_ANON_KEY  =
+SUPABASE_SERVICE_ROLE_KEY      =
 ```
 
 > ⚠ `service_role` ข้าม RLS ทั้งหมด ห้ามหลุดไปฝั่งเบราว์เซอร์หรือขึ้น git เด็ดขาด
 
-- [ ] เขียนค่าทั้งสามลง `.env.hosted` ด้วยตัวเอง (ดูวิธีในหัวข้อ "เขียนไฟล์ `.env` ด้วยตัวเอง" ท้ายเอกสาร)
-- [ ] อย่าส่งค่าลับในแชต — agent ไม่อ่านและไม่เขียนไฟล์ `.env` ใด ๆ เว้น `.env.example` (กฎใน `AGENTS.md`)
+- [x] เขียนค่าทั้งสามลง `.env.hosted` ด้วยตัวเอง (ดูวิธีในหัวข้อ "เขียนไฟล์ `.env` ด้วยตัวเอง" ท้ายเอกสาร)
+- [x] อย่าส่งค่าลับในแชต — agent ไม่อ่านและไม่เขียนไฟล์ `.env` ใด ๆ เว้น `.env.example` (กฎใน `AGENTS.md`)
 
 ---
 
@@ -112,8 +112,8 @@ SUPABASE_SERVICE_ROLE_KEY      =
 - [ ] กด Create แล้วคัดลอก **Client ID** และ **Client secret**
 
 ```
-GOOGLE_CLIENT_ID      = 
-GOOGLE_CLIENT_SECRET  = 
+GOOGLE_CLIENT_ID      =
+GOOGLE_CLIENT_SECRET  =
 ```
 
 > URL ของ Cloudflare Workers จะมาเพิ่มใน origins/redirect ตอนข้อ 8 หลังจาก deploy เสร็จ
@@ -153,7 +153,7 @@ GOOGLE_CLIENT_SECRET  =
 - [ ] กด Create
 
 ```
-SUPER_ADMIN_EMAIL = 
+SUPER_ADMIN_EMAIL =
 ```
 
 **หมายเหตุ:** ขั้นนี้แค่ทำให้อีเมลมีบัญชีอยู่ใน Supabase Auth การกำหนดบทบาท `Super Admin` ในฐานข้อมูลของแอปเป็นงานของ ticket 02 (ไม่ใช่ติ๊กในเอกสารนี้)
@@ -173,8 +173,8 @@ SUPER_ADMIN_EMAIL =
   - ถ้าไม่กด Issue จะไม่มี token ให้ใช้
 
 ```
-LINE_CHANNEL_SECRET        = 
-LINE_CHANNEL_ACCESS_TOKEN  = 
+LINE_CHANNEL_SECRET        =
+LINE_CHANNEL_ACCESS_TOKEN  =
 ```
 
 **หน้าเว็บ:** https://manager.line.biz/
@@ -201,7 +201,7 @@ LINE_CHANNEL_ACCESS_TOKEN  =
 - [ ] คัดลอก **Account ID** จาก URL ของ dashboard หรือแถบด้านข้างของ Workers & Pages
 
 ```
-CLOUDFLARE_ACCOUNT_ID = 
+CLOUDFLARE_ACCOUNT_ID =
 ```
 
 **หลัง agent deploy เสร็จ (ticket 03) — กลับมาทำส่วนนี้:**
@@ -217,7 +217,7 @@ CLOUDFLARE_ACCOUNT_ID =
 - [ ] กลับไปที่ Supabase → Site URL: ใส่ URL ของ Workers
 
 ```
-APP_BASE_URL = 
+APP_BASE_URL =
 ```
 
 ---
@@ -262,28 +262,28 @@ gh variable set SUPABASE_PROJECT_REF
 
 ## ค่าทั้งหมดที่ต้องได้ (สรุปในที่เดียว)
 
-| ชื่อค่า | มาจาก | เก็บที่ | ลับ |
-|---|---|---|---|
-| `SUPABASE_PROJECT_REF` | URL ของโปรเจกต์ | `.env.hosted` + gh variable | ไม่ |
-| `SUPABASE_DB_PASSWORD` | ตอนสร้างโปรเจกต์ (ครั้งเดียว) | `.env.hosted` + gh secret | ใช่ |
-| `NEXT_PUBLIC_SUPABASE_URL` | Settings → API keys | `.env.hosted` | ไม่ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Settings → API keys | `.env.hosted` + client bundle | ไม่ |
-| `SUPABASE_SERVICE_ROLE_KEY` | Settings → API keys | `.env.hosted` (server เท่านั้น) | ใช่ |
-| `GOOGLE_CLIENT_ID` | Google Cloud → Credentials | `.env.hosted` | ไม่ |
-| `GOOGLE_CLIENT_SECRET` | Google Cloud → Credentials | `.env.hosted` | ใช่ |
-| `SUPER_ADMIN_EMAIL` | อีเมลเจ้าของร้าน | `.env.hosted` | ไม่ |
-| `LINE_CHANNEL_SECRET` | LINE Basic settings | `.env.hosted` | ใช่ |
-| `LINE_CHANNEL_ACCESS_TOKEN` | LINE Messaging API tab | `.env.hosted` | ใช่ |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard | `.env.hosted` | ไม่ |
-| `APP_BASE_URL` | หลัง deploy | `.env.hosted` | ไม่ |
-| `SUPABASE_ACCESS_TOKEN` | Account → Access tokens | gh secret เท่านั้น | ใช่ |
+| ชื่อค่า                         | มาจาก                         | เก็บที่                         | ลับ |
+| ------------------------------- | ----------------------------- | ------------------------------- | --- |
+| `SUPABASE_PROJECT_REF`          | URL ของโปรเจกต์               | `.env.hosted` + gh variable     | ไม่ |
+| `SUPABASE_DB_PASSWORD`          | ตอนสร้างโปรเจกต์ (ครั้งเดียว) | `.env.hosted` + gh secret       | ใช่ |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Settings → API keys           | `.env.hosted`                   | ไม่ |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Settings → API keys           | `.env.hosted` + client bundle   | ไม่ |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Settings → API keys           | `.env.hosted` (server เท่านั้น) | ใช่ |
+| `GOOGLE_CLIENT_ID`              | Google Cloud → Credentials    | `.env.hosted`                   | ไม่ |
+| `GOOGLE_CLIENT_SECRET`          | Google Cloud → Credentials    | `.env.hosted`                   | ใช่ |
+| `SUPER_ADMIN_EMAIL`             | อีเมลเจ้าของร้าน              | `.env.hosted`                   | ไม่ |
+| `LINE_CHANNEL_SECRET`           | LINE Basic settings           | `.env.hosted`                   | ใช่ |
+| `LINE_CHANNEL_ACCESS_TOKEN`     | LINE Messaging API tab        | `.env.hosted`                   | ใช่ |
+| `CLOUDFLARE_ACCOUNT_ID`         | Cloudflare dashboard          | `.env.hosted`                   | ไม่ |
+| `APP_BASE_URL`                  | หลัง deploy                   | `.env.hosted`                   | ไม่ |
+| `SUPABASE_ACCESS_TOKEN`         | Account → Access tokens       | gh secret เท่านั้น              | ใช่ |
 
 ## `.env` สองไฟล์ที่ต้องแยกกัน
 
-| ไฟล์ | ใช้เมื่อ | ค่า | ใครเขียน |
-|---|---|---|---|
-| `.env.local` | `npm run dev` และเทสต์บนเครื่อง | ชี้ไป Supabase local (`http://127.0.0.1:54321`) | คุณเขียนเอง |
-| `.env.hosted` | อ้างอิงค่าจริงของ production | ชี้ไปโปรเจกต์ Supabase บนคลาวด์ | คุณเขียนเอง |
+| ไฟล์          | ใช้เมื่อ                        | ค่า                                             | ใครเขียน    |
+| ------------- | ------------------------------- | ----------------------------------------------- | ----------- |
+| `.env.local`  | `npm run dev` และเทสต์บนเครื่อง | ชี้ไป Supabase local (`http://127.0.0.1:54321`) | คุณเขียนเอง |
+| `.env.hosted` | อ้างอิงค่าจริงของ production    | ชี้ไปโปรเจกต์ Supabase บนคลาวด์                 | คุณเขียนเอง |
 
 > แยกสองไฟล์เพราะถ้า `npm run dev` ชี้ไป production โดยไม่ตั้งใจ การทดสอบจะเขียนข้อมูลลงฐานข้อมูลจริง
 
